@@ -1,5 +1,6 @@
 "use client"
 import { useRef, useState } from "react";
+import { Analytics } from '@vercel/analytics/react';
 
 export default function Home() {
   const imgRef =useRef<HTMLInputElement>(null);
@@ -62,6 +63,7 @@ export default function Home() {
           ref={imgRef}
           onChange={handleImage}
         /> 
+        <Analytics/>
     </main>
   )
 }

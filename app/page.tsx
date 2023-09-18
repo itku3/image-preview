@@ -55,8 +55,23 @@ export default function Home() {
         />
         )
       }
-        <button className="my-3 cursor-pointer focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900" onClick={handleLabel}>Image Upload</button>
-        <input
+        <button 
+          type="button"
+          className="
+            bg-gradient-to-r from-[#5f72bd] to-[#9b23ea]
+          hover:bg-purple-500
+          focus:ring-purple-300
+            focus:outline-none
+            focus:ring-4
+            my-3 
+          text-white
+            font-bold 
+            rounded-lg 
+            text-sm px-5 
+            py-2.5 mb-2 
+        " 
+        onClick={handleLabel}>Image Upload</button>
+        <input 
           type="file"
           accept="image/*"
           className="hidden"

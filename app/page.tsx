@@ -65,12 +65,14 @@ export default function Home() {
             focus:ring-4
             my-3 
           text-white
-            font-bold 
+            font-bold   
             rounded-lg 
             text-sm px-5 
             py-2.5 mb-2 
         " 
-        onClick={handleLabel}>Image Upload</button>
+        onClick={handleLabel}>
+            Image Upload
+        </button>
         <input 
           type="file"
           accept="image/*"

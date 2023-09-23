@@ -3,13 +3,41 @@ import { useRef, useState } from "react";
 import { Analytics } from '@vercel/analytics/react';
 
 export default function Home() {
-  const imgRef =useRef<HTMLInputElement>(null);
+  const imgRef = useRef<HTMLInputElement>(null);
   const [imgFile, setImgFile] = useState<string | null>(null);
 
-  const handleImage = (e : React.ChangeEvent<HTMLInputElement>) => {
+  //drag & drop 이벤트 
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const [isDrag, setIsDrag] = useState<boolean>(false);
+
+  const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     // @ts-ignore
     const file = imgRef.current?.files[0];
+    handleImage(file);
+  }
+
+  const handleLabel = (e : any) => {
+    imgRef.current?.click();  
+  }
+
+  const handleDrag = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    setIsDrag(true);
+    console.log(isDrag);
+  }
+
+  const handleDrop = (e: any) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    handleImage(file);
+    setIsDrag(false);
+  }
+
+  const handleImage  = (files : any) => {
+    const file = files;
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -32,15 +60,11 @@ export default function Home() {
         const croppedDataURL = canvas.toDataURL();
         setImgFile(croppedDataURL);
       };
-        e.target.value = "";
+        // files.target.value = '';
     };
-        // @ts-ignore
+    // @ts-ignore
     reader.readAsDataURL(file);
     //console.log(file);
-  }
-
-  const handleLabel = (e : any) => {
-    imgRef.current?.click();  
   }
 
   return (
@@ -57,19 +81,26 @@ export default function Home() {
       }
         <button 
           type="button"
-          className="
+          className={`
+            ${isDrag ? 'bg-gradient-to-r from-[#3953bd] to-[#910ceb]' : 'bg-gradient-to-r from-[#5f72bd] to-[#9b23ea]'}
             bg-gradient-to-r from-[#5f72bd] to-[#9b23ea]
-          hover:bg-purple-500
+            hover:bg-gradient-to-r hover:from-[#3953bd] hover:to-[#910ceb]
           focus:ring-purple-300
             focus:outline-none
             focus:ring-4
-            my-3 
+            my-3
           text-white
             font-bold   
             rounded-lg 
             text-sm px-5 
-            py-2.5 mb-2 
-        " 
+            py-2.5 mb-2 `
+        } 
+        onDragEnter={handleDrag}
+        onDragOver={handleDrag}
+        onDragLeave={handleDrag}
+        onDrop={handleDrop}
+
+        ref={btnRef}
         onClick={handleLabel}>
             Image Upload
         </button>
@@ -78,8 +109,9 @@ export default function Home() {
           accept="image/*"
           className="hidden"
           ref={imgRef}
-          onChange={handleImage}
+          onChange={handleChange}
         /> 
+        <p>Click Image Upload <span className="font-bold bg-gradient-to-r from-[#5f72bd] to-[#9b23ea] bg-clip-text text-transparent">Button</span> and Drag & Drop Image.</p>
         <Analytics/>
     </main>
   )

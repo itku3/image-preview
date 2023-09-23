@@ -83,7 +83,6 @@ export default function Home() {
           type="button"
           className={`
             ${isDrag ? 'bg-gradient-to-r from-[#3953bd] to-[#910ceb]' : 'bg-gradient-to-r from-[#5f72bd] to-[#9b23ea]'}
-            bg-gradient-to-r from-[#5f72bd] to-[#9b23ea]
             hover:bg-gradient-to-r hover:from-[#3953bd] hover:to-[#910ceb]
           focus:ring-purple-300
             focus:outline-none
